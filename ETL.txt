@@ -1,0 +1,57 @@
+## ETL 
+
+1) extract , transform , load  
+
+
+* Life cycle of DS proj / DE proj : -
+
+
+
+# ETL pipeline / Data pipeline 
+
+1) source od data : 
+
+source of data can be 1) api , 2) internal Db 3) iot device 4) paid api 
+
+
+AS data engineer team will do data pipeline they integrate combine all the abouve  data source together : 
+- They do some kind of preprocesssing and transformation 
+- they combine all the data and try to convert it into "json" format :which will have entire data together
+- all this combine data will be store in one specific source  
+
+so we take all the data from various is called --> Extract 
+and preprocesssing and trasform (cleaning) and converting into format(json) --> transform 
+so we have json data we store it in some kind of sorce -- > Load (sql,nosql DB)
+
+
+* DS will be dependend on sorce  -- > Load (sql,nosql DB)
+
+
+* Airflow is opensorce platform which will help you to create Data Pipeline which include (ETL)
+* Inside the Airflow we schedule all the abouve process  
+
+
+small proj :
+
+we read data from :-> API 
+then we transform it :-> convert int into json 
+then we store it into DB (post) 
+
+-- all abouve process we will schedule we use Airflow :
+Q , Why Schedule ? -> Bcoz if we have data for every day, weeek to schedule this we use airflow (we can setup everything)
+
+All postgre will run it in docker conatiner so it will independent  
+
+
+
+### project  ### 
+
+1st step : 
+E->T->L
+API -> transform->Load  
+
+we make docker-compose.yml file cause : airflow , and postgre are both running on diff-diff docker conatiner :
+to intract both conatiner we use this file . 
+
+1) Inside dags folder we crete file etl.py --> inside we crete mul task like ETL
+ here we use python oprater we use to execute python function 

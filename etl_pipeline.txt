@@ -1,0 +1,158 @@
+
+# ETL Pipeline with Apache Airflow, Docker, PostgreSQL, and NASA API
+
+Follow these steps to build and run your ETL pipeline.
+
+---
+
+## STEP 1: Create Project Folder
+
+```bash
+mkdir etl_pipeline_nasa
+cd etl_pipeline_nasa
+code .
+```
+
+---
+
+## STEP 2: Initialize Airflow Project using Astro CLI
+
+```bash
+astro dev init
+```
+
+---
+
+## STEP 3: Folder Structure (after init)
+
+```
+etl_pipeline_nasa/
+│
+├── dags/
+│   └── nasa_etl_dag.py
+├── include/
+│   └── transform.py (optional)
+├── plugins/
+├── Dockerfile
+├── requirements.txt
+├── airflow_settings.yaml
+├── .env
+└── .astro/
+```
+
+---
+
+## STEP 4: Create .env file
+
+Create a file named `.env` in the root directory:
+
+```
+NASA_API_KEY=DEMO_KEY
+```
+
+---
+
+## STEP 5: Create `nasa_etl_dag.py` in the dags/ folder
+
+```python
+from airflow.decorators import dag, task
+from airflow.providers.http.operators.http import SimpleHttpOperator
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+from datetime import datetime
+import json
+import os
+import requests
+
+NASA_API_KEY = os.getenv("NASA_API_KEY")
+
+@dag(schedule_interval="@daily", start_date=datetime(2023, 1, 1), catchup=False, tags=["nasa", "etl"])
+def nasa_etl_dag():
+
+    @task()
+    def extract_data():
+        url = f"https://api.nasa.gov/planetary/apod?api_key={NASA_API_KEY}"
+        response = requests.get(url)
+        return response.json()
+
+    @task()
+    def transform_data(data: dict):
+        return {
+            "title": data.get("title"),
+            "url": data.get("url"),
+            "explanation": data.get("explanation"),
+            "date": data.get("date"),
+        }
+
+    @task()
+    def load_data(data: dict):
+        pg_hook = PostgresHook(postgres_conn_id="postgres_conn")
+        insert_query = """
+            INSERT INTO nasa_apod (title, url, explanation, date)
+            VALUES (%s, %s, %s, %s);
+        """
+        pg_hook.run(insert_query, parameters=(data['title'], data['url'], data['explanation'], data['date']))
+
+    raw_data = extract_data()
+    processed_data = transform_data(raw_data)
+    load_data(processed_data)
+
+nasa_etl_dag()
+```
+
+---
+
+## STEP 6: airflow_settings.yaml (for PostgreSQL connection)
+
+```yaml
+connections:
+  - conn_id: 'postgres_conn'
+    conn_type: 'postgres'
+    host: 'postgres'
+    port: 5432
+    login: 'airflow'
+    password: 'airflow'
+    schema: 'airflow'
+```
+
+---
+
+## STEP 7: Create PostgreSQL Table
+
+Once containers are running, connect to PostgreSQL and run:
+
+```sql
+CREATE TABLE nasa_apod (
+  title TEXT,
+  url TEXT,
+  explanation TEXT,
+  date DATE
+);
+```
+
+---
+
+## STEP 8: Start the Airflow project
+
+```bash
+astro dev start
+```
+
+Visit Airflow UI at: `http://localhost:8080`  
+Login: admin / admin
+
+---
+
+## STEP 9: Trigger and Test DAG
+
+1. Go to Airflow UI.
+2. Enable `nasa_etl_dag`.
+3. Click "Trigger DAG".
+4. Monitor logs and results.
+
+---
+
+## STEP 10: Check Data in PostgreSQL
+
+Use psql or DB tool to verify the data was inserted into `nasa_apod`.
+
+Done 🎉
