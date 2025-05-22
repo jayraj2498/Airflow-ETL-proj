@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This project was generated using the command `astro dev init` via the Astronomer CLI.  
 Below is a summary of the project structure and instructions to run Apache Airflow locally.
 
@@ -57,3 +58,6 @@ scheduler: Monitors and runs tasks
 triggerer: Triggers deferred tasks
 
 To check if containers are running: 
+=======
+# Airflow-ETL-proj
+>>>>>>> fa61f3070e75f179420cc1895106fcba623da596

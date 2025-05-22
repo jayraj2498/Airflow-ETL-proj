@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .git
 .env
 .DS_Store
@@ -9,3 +10,8 @@ airflow-webserver.pid
 webserver_config.py
 airflow.cfg
 airflow.db
+=======
+# Build folder and log file
+build/
+build.log
+>>>>>>> fa61f3070e75f179420cc1895106fcba623da596
