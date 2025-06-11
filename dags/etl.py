@@ -12,8 +12,13 @@ with DAG(
     dag_id='nasa_data_apod_postgres',
     start_date=days_ago(1),
     schedule_interval='@daily',
+    
+    
     catchup=False,
 ) as dag :
+    
+    
+    
     
     
     
