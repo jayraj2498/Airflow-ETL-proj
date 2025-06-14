@@ -9,7 +9,7 @@
 
 # ETL pipeline / Data pipeline 
 
-1) source od data : 
+1) source of data : 
 
 source of data can be 1) api , 2) internal Db 3) iot device 4) paid api 
 
@@ -19,7 +19,7 @@ AS data engineer team will do data pipeline they integrate combine all the abouv
 - they combine all the data and try to convert it into "json" format :which will have entire data together
 - all this combine data will be store in one specific source  
 
-so we take all the data from various is called --> Extract 
+so we take all the data from various source is called --> Extract 
 and preprocesssing and trasform (cleaning) and converting into format(json) --> transform 
 so we have json data we store it in some kind of sorce -- > Load (sql,nosql DB)
 
@@ -55,3 +55,7 @@ to intract both conatiner we use this file .
 
 1) Inside dags folder we crete file etl.py --> inside we crete mul task like ETL
  here we use python oprater we use to execute python function 
+
+
+
+
