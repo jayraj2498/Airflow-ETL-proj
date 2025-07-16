@@ -1,63 +1,49 @@
-<<<<<<< HEAD
-This project was generated using the command `astro dev init` via the Astronomer CLI.  
-Below is a summary of the project structure and instructions to run Apache Airflow locally.
+# 🚀  APOD Data Pipeline with Airflow & PostgreSQL
+
+This project builds a fully automated ETL pipeline to ingest data from the **NASA Astronomy Picture of the Day (APOD)** API using **Apache Airflow**, store it into **PostgreSQL**, and schedule it using **Astro CLI**.
 
 ---
 
-## 📂 Project Contents
+## 🧠 Objective
 
-- **`dags/`**: Contains your Airflow DAGs.
-  - `example_astronauts.py`: A sample ETL pipeline that:
-    - Fetches data from the Open Notify API (astronauts in space).
-    - Uses **TaskFlow API**.
-    - Demonstrates **dynamic task mapping**.
-
-- **`Dockerfile`**: Defines the Astro Runtime Docker image.  
-  You can add commands here to customize runtime behavior.
-
-- **`include/`**: For any extra project files (default: empty).
-
-- **`packages.txt`**: Add any OS-level dependencies here (default: empty).
-
-- **`requirements.txt`**: List your required Python packages here (default: empty).
-
-- **`plugins/`**: For custom or community plugins (default: empty).
-
-- **`airflow_settings.yaml`**:  
-  Add local Airflow Connections, Variables, and Pools here instead of entering them manually in the UI.
+The goal is to extract daily astronomy data from NASA's APOD API, transform the response, and load it into a PostgreSQL database for persistent storage and further analytics.
 
 ---
 
-## 🛠️ Run Airflow Locally
+## 📦 Tech Stack
 
-1. Start Airflow with:
-   ```bash
-   astro dev start 
+| Tool           | Purpose                            |
+|----------------|-------------------------------------|
+| Apache Airflow | Workflow orchestration (ETL)        |
+| Astro CLI      | Airflow deployment & management     |
+| PostgreSQL     | Persistent database storage         |
+| Docker         | Containerized local environment     |
+| Python         | Data transformation & scripting     |
+| NASA API       | Astronomy Picture of the Day        |
+
+---
+
+## 📂 Project Structure
+
+```bash
+ml_ops_proj/
+├── dags/
+│   └── etl.py              # Airflow DAG for ETL
+├── include/
+│   └── requirements.txt    # Python dependencies
+├── Dockerfile              # Custom image (optional)
+├── .env                    # Astro environment config
+├── airflow.settings.yaml   # Connection setup
+├── README.md               # Project documentation
+└── ...
 
 
 
 
 
+## Improvements
 
-
-
-
-
-
-
-
-
-This will create 4 Docker containers:
-
-postgres: Airflow metadata database
-
-webserver: Airflow UI
-
-scheduler: Monitors and runs tasks
-
-triggerer: Triggers deferred tasks
-
-To check if containers are running: 
-=======
-# Airflow-ETL-proj
-
+- Add Evidently or Great Expectations for data validation
+- Extend support to store images in AWS S3 or GCS
+- Visualize APOD entries using a dashboard (e.g., Streamlit or Dash)
+- Schedule email alerts with APOD image of the day
