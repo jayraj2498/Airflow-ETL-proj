@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   postgres:
     image: postgres:13
@@ -8,15 +9,16 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"  # ⚠️ External port is 5433 to avoid Astro’s internal DB clash
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - airflow_network
-
-networks:
-  airflow_network:
-    external: false
+      - default
 
 volumes:
   postgres_data:
+
+networks:
+  default:
+    external:
+      name: ml_ops_proj_default  

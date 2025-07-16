@@ -89,7 +89,7 @@ to intract both conatiner we use this file
 
 
 
-
+# at the end of the step to see the postgre conn we require DB+viwer 
 
 
 
