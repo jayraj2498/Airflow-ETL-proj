@@ -129,8 +129,7 @@ with DAG(
     
     
 #     # step 2 : extract the nasa api data (APOD data )- Astronomy picture of the day data [extract pipeline]
-#     # eOnJsgUmtzZXh2QygWeKA5T5DDsGVmcdmbugcbqT
-#       eOnJsgUmtzZXh2QygWeKA5T5DDsGVmcdmbugcbqT
+#     
 #     # https://api.nasa.gov/planetary/apod?api_key=eOnJsgUmtzZXh2QygWeKA5T5DDsGVmcdmbugcbqT
 #     # 
 #     # : 
