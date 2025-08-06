@@ -35,6 +35,7 @@ ml_ops_proj/
 ├── .env                    # Astro environment config
 ├── airflow.settings.yaml   # Connection setup
 ├── README.md               # Project documentation
+
 └── ...
 
 

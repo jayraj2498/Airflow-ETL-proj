@@ -52,6 +52,10 @@ with DAG(
         return apod_data
 
     # Step 4: Load the data into PostgreSQL
+    
+    
+    
+    
     @task 
     def load_data_to_postgres(apod_data):
         postgres_hook = PostgresHook(postgres_conn_id='my_postgres_connection')
